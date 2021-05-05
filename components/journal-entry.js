@@ -7,47 +7,42 @@ class JournalEntry extends HTMLElement {
     const template = document.createElement('template');
 
     template.innerHTML = `
-        <style>
-            .entry {
-                background-color: white;
-                border-radius: 6px;
-                list-style-type: none;
-                margin-bottom: 30px;
-                max-width: 700px;
-                padding: 20px;
-                width: 80%;
-            }
-            .entry-audio {
-                margin: 10px 0;
-                width: 95%;
-            }
-            .entry-content {
-                font-size: 20px;
-                margin: 10px 0;
-                text-indent: 30px;
-            }
-            .entry-date {
-                color: rgb(163, 163, 163);
-                font-size: 20px;
-                margin-top: 3px;
-                margin-bottom: 20px;
-            }
-            .entry-image {
-                height: 100%;
-                max-height: 350px;
-                max-width: 550px;
-            }
-            .entry-title {
-                margin-bottom: 5px;
-                margin-top: 5px;
-            }
-        </style>
-        <article class="entry">
-            <h2 class="entry-title"></h2>
-            <p class="entry-date"></p>
-            <p class="entry-content"></p>
-        </article>
-        `;
+    <style>
+        .entry {
+            background-color: white;
+            border-radius: 6px;
+            list-style-type: none;
+            margin-bottom: 30px;
+            max-width: 700px;
+            padding: 20px;
+            width: 80%;
+        }
+        .entry-audio {
+            margin: 10px 0;
+            width: 95%;
+        }
+        .entry-content {
+            font-size: 20px;
+            margin: 10px 0;
+            text-indent: 30px;
+        }
+        .entry-date {
+            color: rgb(163, 163, 163);
+            font-size: 20px;
+            margin-top: 3px;
+            margin-bottom: 20px;
+        }
+        .entry-image {
+            height: 100%;
+            max-height: 350px;
+            max-width: 550px;
+        }
+        .entry-title {
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+    </style>
+    `;
 
     // create a shadow root for this web component
     this.attachShadow({ mode: 'open' })
@@ -74,6 +69,22 @@ class JournalEntry extends HTMLElement {
     
     // CODE GOES HERE
 
+    let entryDiv = document.createElement('article');
+    entryDiv.setAttribute('class', 'entry');
+    let entryTitle = document.createElement('h2');
+    entryTitle.setAttribute('class', 'entry-title');
+    entryTitle.textContent = entry.title;
+    let entryDate = document.createElement('p');
+    entryDate.setAttribute('class', 'entry-date');
+    entryDate.textContent = entry.date;
+    let entryContent = document.createElement('p');
+    entryContent.setAttribute('class', 'entry-content');
+    entryContent.textContent = entry.content;
+
+    entryDiv.appendChild(entryTitle);
+    entryDiv.appendChild(entryDate);
+    entryDiv.appendChild(entryContent);
+
     if (entry.image) {
       let entryImage;
       /*
@@ -85,9 +96,11 @@ class JournalEntry extends HTMLElement {
 
       // CODE GOES HERE vvv
 
-
-
-
+      entryImage = document.createElement('IMG');
+      entryImage.setAttribute('class', 'entry-image')
+      entryImage.setAttribute('src', entry.image['src']);
+      entryImage.setAttribute('alt', entry.image['alt']);
+      entryDiv.appendChild(entryImage);
 
       // CODE GOES HERE ^^^
 
@@ -111,14 +124,14 @@ class JournalEntry extends HTMLElement {
 
       // CODE GOES HERE vvv
 
-
-
-
-
+      entryAudio = document.createElement('audio');
+      entryAudio.setAttribute('class', 'entry-audio');
+      entryAudio.setAttribute('src', entry.audio);
+      entryAudio.setAttribute('controls', true);
+      entryDiv.appendChild(entryAudio);
 
       // CODE GOES HERE ^^^
       
-
       
       /* ------------- do not edit this code, it is for your debugging purposes ------------- */
       try {
@@ -129,6 +142,8 @@ class JournalEntry extends HTMLElement {
       /* ------------- do not edit this code, it is for your debugging purposes ------------- */
 
     }
+
+    this.shadowRoot.appendChild(entryDiv);
     this.setAttribute('entry', entry);
 
     /* ------------- do not edit this code, it is for your debugging purposes ------------- */

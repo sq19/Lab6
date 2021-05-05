@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let url = "https://cse110lab6.herokuapp.com/entries"  // SET URL 
 
   fetch(url)
-    .then( /* FILL IN RESPONSE HANDLING HERE */ )
+    .then( entries => entries.json() )
     .then(entries => {
       entries.forEach((entry) => {
        
@@ -29,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // CODE GOES HERE vvv
         
         newPost = document.createElement('journal-entry');
-        newPost.entry(entry);
-        document.main.appendChild(newPost);
+        newPost.entry = entry;
+        let main = document.getElementsByTagName('main');
+        main[0].appendChild(newPost);
 
         // CODE GOES HERE ^^^
 
