@@ -42,6 +42,11 @@ class JournalEntry extends HTMLElement {
             margin-top: 5px;
         }
     </style>
+    <article class="entry">
+      <h2 class="entry-title"></h2>
+      <p class="entry-date"></p>
+      <p class="entry-content"></p>
+    </article>
     `;
 
     // create a shadow root for this web component
@@ -69,21 +74,13 @@ class JournalEntry extends HTMLElement {
     
     // CODE GOES HERE
 
-    let entryDiv = document.createElement('article');
-    entryDiv.setAttribute('class', 'entry');
-    let entryTitle = document.createElement('h2');
-    entryTitle.setAttribute('class', 'entry-title');
+    let entryDiv = this.shadowRoot.querySelector('.entry');
+    let entryTitle = this.shadowRoot.querySelector('.entry-title');
     entryTitle.textContent = entry.title;
-    let entryDate = document.createElement('p');
-    entryDate.setAttribute('class', 'entry-date');
+    let entryDate = this.shadowRoot.querySelector('.entry-date')
     entryDate.textContent = entry.date;
-    let entryContent = document.createElement('p');
-    entryContent.setAttribute('class', 'entry-content');
+    let entryContent = this.shadowRoot.querySelector('.entry-content');
     entryContent.textContent = entry.content;
-
-    entryDiv.appendChild(entryTitle);
-    entryDiv.appendChild(entryDate);
-    entryDiv.appendChild(entryContent);
 
     if (entry.image) {
       let entryImage;
