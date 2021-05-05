@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * the current entry for each journal-entry element.
    */
 
-  let url = ""  // SET URL 
+  let url = "https://cse110lab6.herokuapp.com/entries"  // SET URL 
 
   fetch(url)
     .then( /* FILL IN RESPONSE HANDLING HERE */ )
@@ -28,12 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // CODE GOES HERE vvv
         
-
-
-
-
-
-
+        newPost = document.createElement('journal-entry');
+        newPost.entry(entry);
+        document.main.appendChild(newPost);
 
         // CODE GOES HERE ^^^
 
